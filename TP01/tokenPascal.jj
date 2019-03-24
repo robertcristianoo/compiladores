@@ -30,8 +30,78 @@ SKIP :
 
 TOKEN :
 {
-  <LBRACE: "{">
-| <RBRACE: "}">
+	<LBRACE: "{">
+	| <RBRACE: "}">
+	| <ABSOLUTE: "absolute">
+	| <AND: "and">
+	| <ARRAY: "array">
+	| <ASM: "asm">
+	| <BEGIN: "begin">
+	| <CASE: "case">
+	| <CONST: "const">
+	| <CONSTRUCTOR: "constructor">
+	| <DESTRUCTOR: "destructor">
+	| <DIV: "div">
+	| <DO: "do">
+	| <DOWNTO: "downto">
+	| <ELSE: "else">
+	| <END: "end">
+	| <FILE: "file">
+	| <FOR: "for">
+	| <FUNCTION: "function">
+	| <GOTO: "goto">
+	| <IF: "if">
+	| <IMPLEMENTATION: "implementation">
+	| <IN: "in">
+	| <INHERITED: "inherited">
+	| <INLINE: "inline">
+	| <INTERFACE: "interface">  
+	| <LABEL: "label">  
+	| <MOD: "mod">
+	| <NIL: "nil">
+	| <NOT: "not">
+	| <OBJECT: "object">
+	| <OF: "of">
+	| <OPERATOR: "operator">
+	| <OR: "or"
+	| <PACKED: "packed">
+	| <PROCEDURE: "procedure">
+	| <PROGRAM: "program">
+	| <RECORD: "record">
+	| <REINTRODUCE: "reintroduce">
+	| <REPEAT: "repeat">
+	| <SELF: "self">
+	| <SET: "set">
+	| <SHL: "shl">
+	| <SHR: "shr">
+	| <STRING: "string">
+	| <THEN: "then">
+	| <TO: "to">
+	| <TYPE: "type">
+	| <UNIT: "unit">
+	| <UNTIL: "until">
+	| <USERS: "uses">
+	| <VAR: "var">
+	| <WHILE: "while">
+	| <WITH: "with">
+	| <XOR: "xor">
+	| <AS: "as">
+	| <CLASS: "class">
+	| <DISPINTERFACE: "dispinterface">
+	| <EXCEPT: "except">
+	| <EXPORTS: "exports">
+	| <FINALIZATION: "finalization">
+	| <FINALLY: "finally">
+	| <INITIALIZATION: "initialization">
+	| <IS: "is">
+	| <LIBRARY: "library">
+	| <ON: "on">
+	| <OUT: "out">
+	| <PROPERTY: "property">
+	| <RAISE: "raise">
+	| <RESOURCESTRING: "resourcestring">
+	| <THREADVAR: "threadvar"
+	| <TRY: "try">
 }
 
 /** Root production. */
