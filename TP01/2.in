@@ -1,0 +1,5 @@
+Program Primeiro_Programa1;
+Begin
+        Write('Hello World! 123 Eba. 123.123Eu sei fazer exemplo chato.');
+        Readln;
+End.

@@ -1,0 +1,5 @@
+Program Primeiro_Programa1;
+Begin
+        Write('Hello World!');
+        Readln
+End.

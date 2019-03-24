@@ -1,0 +1,11 @@
+Program Programa3;
+Var       
+    Num1,Num2,Sum:Integer;
+Begin
+	Write('Digite Num1:'); 
+	Readln(Num1);
+        Num2:=123*1.23E+4-.25*40.+555;
+	Sum:=Num1+Num2*1;
+	Writeln(Sum);
+	Readln
+End. 
