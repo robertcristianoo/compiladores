@@ -8,8 +8,6 @@ PARSER_BEGIN(tokenPascal)
 
 /** Simple brace matcher. */
 public class tokenPascal {
-
-  /** Main entry point. */
   public static void main(String args[]) throws ParseException {
     tokenPascal parser;
     if (args.length == 0) {
@@ -175,9 +173,12 @@ TOKEN :
 
 TOKEN :
 {
-  < NUM: ["1"-"9"] (["0"-"9"])* >
+  < NUM: 
+        ["1"-"9"] (["0"-"9"])* 
+      | ["0"]
+  >
 |
-  < NUM_FLOAT:
+  < FLOAT_NUM:
         (["0"-"9"])+ "." (["0"-"9"])* ["e","E"] (["+","-"])? (["0"-"9"])+
       | "." (["0"-"9"])+ ["e","E"] (["+","-"])? (["0"-"9"])+
       | (["0"-"9"])+ ["e","E"] (["+","-"])? (["0"-"9"])+
