@@ -1,31 +1,8 @@
-| <AS: "as">
-	| <CLASS: "class">
-	| <DISPINTERFACE: "dispinterface">
-	| <EXCEPT: "except">
-	| <EXPORTS: "exports">
-	| <FINALIZATION: "finalization">
-	| <FINALLY: "finally">
-	| <INITIALIZATION: "initialization">
-	| <IS: "is">
-	| <LIBRARY: "library">
-	| <ON: "on">
-	| <OUT: "out">
-	| <PROPERTY: "property">
-	| <RAISE: "raise">
-	| <RESOURCESTRING: "resourcestring">
-	| <THREADVAR: "threadvar"
-	| <TRY: "try">
-	
-	
-	/* 
+/* 
     Authors: Paulo Augusto, Robert Cristiano
     last edit: 24/03/2019
     by: Robert Cristiano
  */
-
-options {
-  JAVA_UNICODE_ESCAPE = true;
-}
 
 PARSER_BEGIN(tokenPascal)
 
