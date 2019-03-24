@@ -1,4 +1,23 @@
-/* 
+| <AS: "as">
+	| <CLASS: "class">
+	| <DISPINTERFACE: "dispinterface">
+	| <EXCEPT: "except">
+	| <EXPORTS: "exports">
+	| <FINALIZATION: "finalization">
+	| <FINALLY: "finally">
+	| <INITIALIZATION: "initialization">
+	| <IS: "is">
+	| <LIBRARY: "library">
+	| <ON: "on">
+	| <OUT: "out">
+	| <PROPERTY: "property">
+	| <RAISE: "raise">
+	| <RESOURCESTRING: "resourcestring">
+	| <THREADVAR: "threadvar"
+	| <TRY: "try">
+	
+	
+	/* 
     Authors: Paulo Augusto, Robert Cristiano
     last edit: 24/03/2019
     by: Robert Cristiano
@@ -85,23 +104,64 @@ TOKEN :
 	| <WHILE: "while">
 	| <WITH: "with">
 	| <XOR: "xor">
-	| <AS: "as">
-	| <CLASS: "class">
-	| <DISPINTERFACE: "dispinterface">
-	| <EXCEPT: "except">
-	| <EXPORTS: "exports">
-	| <FINALIZATION: "finalization">
-	| <FINALLY: "finally">
-	| <INITIALIZATION: "initialization">
-	| <IS: "is">
-	| <LIBRARY: "library">
-	| <ON: "on">
-	| <OUT: "out">
-	| <PROPERTY: "property">
-	| <RAISE: "raise">
-	| <RESOURCESTRING: "resourcestring">
-	| <THREADVAR: "threadvar"
-	| <TRY: "try">
+	| <ABSTRACT: "abstract">
+	| <ALIAS: "alias">
+	| <ASSEMBLER: "assembler>
+	| <BITPACKED: "bitpacked>
+	| <BREAK: "break">
+	| <CDECL: "cdecl>
+	| <CONTINUE: "continue">
+	| <CPPDECL: "cppdecl">
+	| <CVAR: "cvar">
+	| <DEFAULT: "default">
+	| <DEPRECATED: "deprecated">
+	| <DYNAMIC: "dynamic">
+	| <ENUMERATOR: "enumerator">
+	| <EXPERIMENTAL: "experimental">
+	| <EXPORT: "export">
+	| <EXTERNAL: "external">
+	| <FAR: "far">
+	| <FAR16: "far16">
+	| <FORWARD: "forward">
+	| <GENERIC: "generic">
+	| <HELPER: "helper">
+	| <IMPLEMENTS: "implements">
+	| <INDEX: "index">
+	| <INTERRUPT: "interrupt">
+	| <IOCHECK: "iocheck">
+	| <LOCAL: "local">
+	| <MESSAGE: "message">
+	| <NAME: "name">
+	| <NEAR: "near">
+	| <NODEFAULT: "nodefault">
+	| <NORETURN: "noreturn">
+	| <NOSTACKFRAME: "nostackframe">
+	| <OLDFPCCALL: "oldfpccall">
+	| <OTHERWISE: "otherwise">
+	| <OVERLOAD: "overload">
+	| <OVERRIDE: "override">
+	| <PASCAL: "pascal">
+	| <PLATFORM: "platform">
+	| <PRIVATE: "private">
+	| <PROTECTED: "protected">
+	| <PUBLIC: "public">
+	| <PUBLISHED: "published">
+	| <READ: "read">
+	| <REGISTER: "register">
+	| <RESULT: "result">
+	| <SAFECALL: "safecall">
+	| <SAVEREGISTERS: "saveregisters">
+	| <SOFTFLOAT: "softfloat">
+	| <SPECIALIZE: "specialize">
+	| <STACTIC: "static">
+	| <SDTCALL: "stdcall">
+	| <STORED: "stored">
+	| <STRICT: "strict">
+	| <UNALIGNED: "unaligned">
+	| <UNIMPLEMENTED: "unimplemented">
+	| <VARARGS: "varargs">
+	| <VIRUAL: "virtual">
+	| <WRITE: "write">
 }
 
 /** Root production. */
