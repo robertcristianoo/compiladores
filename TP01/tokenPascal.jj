@@ -6,7 +6,6 @@
 
 PARSER_BEGIN(tokenPascal)
 
-/** Simple brace matcher. */
 public class tokenPascal {
   public static void main(String args[]) throws ParseException {
     tokenPascal parser;
