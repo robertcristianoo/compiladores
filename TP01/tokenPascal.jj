@@ -8,22 +8,10 @@ PARSER_BEGIN(tokenPascal)
 
 public class tokenPascal {
   public static void main(String args[]) throws ParseException {
-    tokenPascal parser;
-    //if (args.length == 0) {
-          parser = new tokenPascal(System.in);
-      //  } else if (args.length == 1) {
-        //  try {
-          //  parser = new tokenPascal(new java.io.FileInputStream(args[0]));
-          //} catch (java.io.FileNotFoundException e) {
-           // return;
-	//}
-        //try {
-          parser.pascal_input();
-        //} catch (ParseException e) {
-         // System.out.println(e.getMessage());
-        //}
- // }
-}
+	tokenPascal parser;
+    parser = new tokenPascal(System.in);
+    parser.pascal_input();
+	}
 }
 
 PARSER_END(tokenPascal)
