@@ -1,0 +1,446 @@
+/* 
+    Authors: Paulo Augusto, Robert Cristiano
+    last edit: 24/03/2019
+    by: Robert Cristiano
+ */
+
+PARSER_BEGIN(tokenPascal)
+
+public class tokenPascal {
+  public static void main(String args[]) throws ParseException {
+    tokenPascal parser;
+    if (args.length == 0) {
+          System.out.println("Pascal Parser:  Reading from standard input . . .");
+          parser = new tokenPascal(System.in);
+        } else if (args.length == 1) {
+          System.out.println("Pascal Parser:  Reading from file " + args[0] + " . . .");
+          try {
+            parser = new tokenPascal(new java.io.FileInputStream(args[0]));
+          } catch (java.io.FileNotFoundException e) {
+            System.out.println("Pascal Parser:  File " + args[0] + " not found.");
+            return;
+          }
+        } else {
+          System.out.println("Pascal Parser:  Usage is one of:");
+          System.out.println("         java tokenPascal < inputfile");
+          System.out.println("OR");
+          System.out.println("         java tokenPascal inputfile");
+          return;
+        }
+        try {
+          parser.pascal_input();
+          System.out.println("Pascal Parser:  Pascal program parsed successfully.");
+        } catch (ParseException e) {
+          System.out.println(e.getMessage());
+          System.out.println("Pascal Parser:  Encountered errors during parse.");
+        }
+  }
+}
+
+PARSER_END(tokenPascal)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+}
+
+/***********************************************
+ * THE PASCAL TURBO RESERVERD WORDS START HERE *
+ ***********************************************/
+
+TOKEN :
+{
+  < ABSOLUTE: "Absolute" >
+| < AND: "And" >
+| < ARRAY: "Array" >
+| < ASM: "Asm" >
+| < BEGIN: "Begin" >
+| < CASE: "Case" >
+| < CONST: "Const" >
+| < CONSTRUCTOR: "Constructor" >
+| < DESTRUCTOR: "Destructor" >
+| < DIV: "Div" >
+| < DO: "Do" >
+| < DOWNTO: "Downto" >
+| < ELSE: "Else" >
+| < END: "End" >
+| < FILE: "File" >
+| < FOR: "For" >
+| < FUNCTION: "Function" >
+| < GOTO: "Goto" >
+| < IF: "If" >
+| < IMPLEMENTATION: "Implementation" >
+| < IN: "In" >
+| < INHERITED: "Inherited" >
+| < INLINE: "Inline" >
+| < INTERFACE: "Interface" >  
+| < LABEL: "Label" >  
+| < MOD: "Mod" >
+| < NIL: "Nil" >
+| < NOT: "Not" >
+| < OBJECT: "Object" >
+| < OF: "Of" >
+| < OPERATOR: "Operator" >
+| < OR: "Or" >
+| < PACKED: "Packed" >
+| < PROCEDURE: "Procedure" >
+| < PROGRAM: "Program" >
+| < RECORD: "Record" >
+| < REINTRODUCE: "Reintroduce" >
+| < REPEAT: "Repeat" >
+| < SELF: "Self" >
+| < SET: "Set" >
+| < SHL: "Shl" >
+| < SHR: "Shr" >
+| < STRINGR: "String" >
+| < THEN: "Then" >
+| < TO: "To" >
+| < TYPE: "Type" >
+| < UNIT: "Unit" >
+| < UNTIL: "Until" >
+| < USERS: "Uses" >
+| < VAR: "Var" >
+| < WHILE: "While" >
+| < WITH: "With" >
+| < XORR: "Xor" >
+| < ABSTRACT: "Abstract" >
+| < ALIAS: "Alias" >
+| < ASSEMBLER: "Assembler" >
+| < BITPACKED: "Bitpacked" >
+| < BREAK: "Break" >
+| < CDECL: "Cdecl" >
+| < CONTINUE: "Continue" >
+| < CPPDECL: "Cppdecl" >
+| < CVAR: "Cvar" >
+| < DEFAULTR: "Default" >
+| < DEPRECATED: "Deprecated" >
+| < DYNAMIC: "Dynamic" >
+| < ENUMERATOR: "Enumerator" >
+| < EXPERIMENTAL: "Experimental" >
+| < EXPORT: "Export" >
+| < EXTERNAL: "External" >
+| < FAR: "Far" >
+| < FAR16: "Far16" >
+| < FORWARD: "Forward" >
+| < GENERIC: "Generic" >
+| < HELPER: "Helper" >
+| < IMPLEMENTS: "Implements" >
+| < INDEX: "Index" >
+| < INTERRUPT: "Interrupt" >
+| < IOCHECK: "Iocheck" >
+| < LOCAL: "Local" >
+| < MESSAGE: "Message" >
+| < NAME: "Name" >
+| < NEAR: "Near" >
+| < NODEFAULT: "Nodefault" >
+| < NORETURN: "Noreturn" >
+| < NOSTACKFRAME: "Nostackframe" >
+| < OLDFPCCALL: "Oldfpccall" >
+| < OTHERWISE: "Otherwise" >
+| < OVERLOAD: "Overload" >
+| < OVERRIDE: "Override" >
+| < PASCAL: "Pascal" >
+| < PLATFORM: "Platform" >
+| < PRIVATE: "Private" >
+| < PROTECTED: "Protected" >
+| < PUBLIC: "Public" >
+| < PUBLISHED: "Published" >
+| < READ: "Read" >
+| < REGISTER: "Register" >
+| < RESULT: "Result" >
+| < SAFECALL: "Safecall" >
+| < SAVEREGISTERS: "Saveregisters" >
+| < SOFTFLOAT: "Softfloat" >
+| < SPECIALIZE: "Specialize" >
+| < STACTIC: "Static" >
+| < SDTCALL: "Stdcall" >
+| < STORED: "Stored" >
+| < STRICT: "Strict" >
+| < UNALIGNED: "Unaligned" >
+| < UNIMPLEMENTED: "Unimplemented" >
+| < VARARGS: "Varargs" >
+| < VIRUAL: "Virtual" >
+| < IS: "Is" >
+| < AS: "As" >
+| < WRITE: "Write" >
+}
+
+/*************************************************
+ * THE PASCAL TURBO NUMBER, NUMBER_FLOAT, STRING *
+ *************************************************/
+
+TOKEN :
+{
+  < NUM: 
+        ("-")? ["1"-"9"] (["0"-"9"])* 
+      | ["0"]
+  >
+|
+  < FLOAT_NUM:
+        ("-")? (["0"-"9"])+ "." (["0"-"9"])* (<EXPONENT>)?
+      | "." (["0"-"9"])+ (<EXPONENT>)?
+      | (["0"-"9"])+ <EXPONENT>
+      | (["0"-"9"])+ (<EXPONENT>)?
+  >
+|  
+  < #EXPONENT: 
+      ["e","E"] (["+","-"])? (["0"-"9"])+
+  >
+|
+  < STRING:
+      "\'"
+      (   (~["\"","\\","\n","\r"])
+        | ("\\"
+            ( ["n","t","b","r","f","\\","'","\""]
+            | ["0"-"7"] ( ["0"-"7"] )?
+            | ["0"-"3"] ["0"-"7"] ["0"-"7"]
+            )
+          )
+      )*
+      "\'"
+  >
+}
+
+/*************************************************
+ *        THE PASCAL TURBO IDENTIFIERS           *
+ *************************************************/
+
+TOKEN :
+{
+  < ID: <LETTER> (<LETTER>|<DIGIT>)* >
+|
+  < #LETTER:
+      ["A"-"Z","_","a"-"z"]
+  >
+|
+  < #DIGIT:
+      ["0"-"9"]
+  >
+}
+
+/*************************************************
+ *        THE PASCAL TURBO SYMBOLS               *
+ *************************************************/
+
+TOKEN :
+{
+  < PLUS: "+" >
+| < MINUS: "-" >
+| < STAR: "*" >
+| < SLASH: "/" >
+| < EQUALS: "=" >
+| < LT: "<" >
+| < GT: ">" >
+| < LBRACKET: "[" >
+| < RBRACKET: "]" >
+| < DOT: "." >
+| < COMMA: "," >
+| < SEMICOLON: ";" >
+| < LPAREN: "(" >
+| < RPAREN: ")" >
+| < COLON: ":" >
+| < XOR: "^" >
+| < ARROBA: "@" >
+| < LBRACE: "{" >
+| < RBRACE: "}" >
+| < CIFRAO: "$" >
+| < HASHTAG: "#" >
+| < BIT_AND: "&" >
+| < REM: "%" >
+| < LSHIFT: "<<" >
+| < RSIGNEDSHIFT: ">>" >
+| < STARSTAR: "**" >
+| < LTGT: "<>" >
+| < GTLT: "><" >
+| < LOE: "<=" >
+| < GOE: ">=" >
+| < ATRIB: ":=" >
+| < PLUSASSIGN: "+=" >
+| < MINUSASSIGN: "-=" >
+| < STARASSIGN: "*=" >
+| < SLASHASSIGN: "/=" >
+| < ABRESTAR: "(*" >
+| < STARFECHA: "*)" >
+| < ABREDOT: "(." >
+| < DOTFECHA: ".)" >
+| < BARRABARRA: "//" >
+| < #TRUE : "true" >
+| < #FALSE : "false" >
+| < BOOLEAN: (<TRUE> | <FALSE>) >
+}
+
+/************************************************
+ * THE PASCAL GRAMMAR SPECIFICATION STARTS HERE *
+ ************************************************/
+
+void pascal_input() :
+{}
+{
+  term()
+  (
+    term()
+  )*
+}
+
+void term() :
+{Token t;}
+{ 	
+    <ABSOLUTE> {System.out.println("ABSOLUTE");}
+|   <AND> {System.out.println("AND");}
+|   <ARRAY> {System.out.println("ARRAY");}
+|   <ASM> {System.out.println("ASM");}
+|   <BEGIN> {System.out.println("BEGIN");}
+|   <CASE> {System.out.println("CASE");}
+|   <CONST> {System.out.println("CONST");}
+|   <CONSTRUCTOR> {System.out.println("CONSTRUCTOR");}
+|   <DESTRUCTOR> {System.out.println("DESTRUCTOR");}
+|   <DIV> {System.out.println("DIV");}
+|   <DO> {System.out.println("DO");}
+|   <DOWNTO> {System.out.println("DOWNTO");}
+|   <ELSE> {System.out.println("ELSE");}
+|   <END> {System.out.println("END");}
+|   <FILE> {System.out.println("FILE");}
+|   <FOR> {System.out.println("FOR");}
+|   <FUNCTION> {System.out.println("FUNCTION");}
+|   <GOTO> {System.out.println("GOTO");}
+|   <IF> {System.out.println("IF");}
+|   <IMPLEMENTATION> {System.out.println("IMPLEMENTATION");}
+|   <IN> {System.out.println("IN");}
+|   <INHERITED> {System.out.println("INHERITED");}
+|   <INLINE> {System.out.println("INLINE");}
+|   <INTERFACE> {System.out.println("INTERFACE");}
+|   <LABEL> {System.out.println("LABEL");}
+|   <MOD> {System.out.println("MOD");}
+|   <NIL> {System.out.println("NIL");}
+|   <NOT> {System.out.println("NOT");}
+|   <OBJECT> {System.out.println("OBJECT");}
+|   <OF> {System.out.println("OF");}
+|   <OPERATOR> {System.out.println("OPERATOR");}
+|   <OR> {System.out.println("OR");}
+|   <PACKED> {System.out.println("PACKED");}
+|   <PROCEDURE> {System.out.println("PROCEDURE");}
+|   <PROGRAM> {System.out.println("PROGRAM");}
+|   <RECORD> {System.out.println("RECORD");}
+|   <REINTRODUCE> {System.out.println("REINTRODUCE");}
+|   <REPEAT> {System.out.println("REPEAT");}
+|   <SELF> {System.out.println("SELF");}
+|   <SET> {System.out.println("SET");}
+|   <SHL> {System.out.println("SHL");}
+|   <SHR> {System.out.println("SHR");}
+|   <STRINGR> {System.out.println("STRING");}
+|   <THEN> {System.out.println("THEN");}
+|   <TO> {System.out.println("TO");}
+|   <TYPE> {System.out.println("TYPE");}
+|   <UNIT> {System.out.println("UNIT");}
+|   <UNTIL> {System.out.println("UNTIL");}
+|   <USERS> {System.out.println("USERS");}
+|   <VAR> {System.out.println("VAR");}
+|   <WHILE> {System.out.println("WHILE");}
+|   <WITH> {System.out.println("WITH");}
+|   <XORR> {System.out.println("XOR");}
+|   <ABSTRACT> {System.out.println("ABSTRACT");}
+|   <ALIAS> {System.out.println("ALIAS");}
+|   <ASSEMBLER> {System.out.println("ASSEMBLER");}
+|   <BITPACKED> {System.out.println("BITPACKED");}
+|   <BREAK> {System.out.println("BREAK");}
+|   <CDECL> {System.out.println("CDECL");}
+|   <CONTINUE> {System.out.println("CONTINUE");}
+|   <CPPDECL> {System.out.println("CPPDECL");}
+|   <CVAR> {System.out.println("CVAR");}
+|   <DEFAULTR> {System.out.println("DEFAULTR");}
+|   <DEPRECATED> {System.out.println("DEPRECATED");}
+|   <DYNAMIC> {System.out.println("DYNAMIC");}
+|   <ENUMERATOR> {System.out.println("ENUMERATOR");}
+|   <EXPERIMENTAL> {System.out.println("EXPERIMENTAL");}
+|   <EXPORT> {System.out.println("EXPORT");}
+|   <EXTERNAL> {System.out.println("EXTERNAL");}
+|   <FAR> {System.out.println("FAR");}
+|   <FAR16> {System.out.println("FAR16");}
+|   <FORWARD> {System.out.println("FORWARD");}
+|   <GENERIC> {System.out.println("GENERIC");}
+|   <HELPER> {System.out.println("HELPER");}
+|   <IMPLEMENTS> {System.out.println("IMPLEMENTS");}
+|   <INDEX> {System.out.println("INDEX");}
+|   <INTERRUPT> {System.out.println("INTERRUPT");}
+|   <IOCHECK> {System.out.println("IOCHECK");}
+|   <LOCAL> {System.out.println("LOCAL");}
+|   <MESSAGE> {System.out.println("MESSAGE");}
+|   <NAME> {System.out.println("NAME");}
+|   <NEAR> {System.out.println("NEAR");}
+|   <NODEFAULT> {System.out.println("NODEFAULT");}
+|   <NORETURN> {System.out.println("NORETURN");}
+|   <NOSTACKFRAME> {System.out.println("NOSTACKFRAME");}
+|   <OLDFPCCALL> {System.out.println("OLDFPCCALL");}
+|   <OTHERWISE> {System.out.println("OTHERWISE");}
+|   <OVERLOAD> {System.out.println("OVERLOAD");}
+|   <OVERRIDE> {System.out.println("OVERRIDE");}
+|   <PASCAL> {System.out.println("PASCAL");}
+|   <PLATFORM> {System.out.println("PLATFORM");}
+|   <PRIVATE> {System.out.println("PRIVATE");}
+|   <PROTECTED> {System.out.println("PROTECTED");}
+|   <PUBLIC> {System.out.println("PUBLIC");}
+|   <PUBLISHED> {System.out.println("PUBLISHED");}
+|   <READ> {System.out.println("READ");}
+|   <REGISTER> {System.out.println("REGISTER");}
+|   <RESULT> {System.out.println("RESULT");}
+|   <SAFECALL> {System.out.println("SAFECALL");}
+|   <SAVEREGISTERS> {System.out.println("SAVEREGISTERS");}
+|   <SOFTFLOAT> {System.out.println("SOFTFLOAT");}
+|   <SPECIALIZE> {System.out.println("SPECIALIZE");}
+|   <STACTIC> {System.out.println("STACTIC");}
+|   <SDTCALL> {System.out.println("SDTCALL");}
+|   <STORED> {System.out.println("STORED");}
+|   <STRICT> {System.out.println("STRICT");}
+|   <UNALIGNED> {System.out.println("UNALIGNED");}
+|   <UNIMPLEMENTED> {System.out.println("UNIMPLEMENTED");}
+|   <VARARGS> {System.out.println("VARARGS");}
+|   <VIRUAL> {System.out.println("VIRUAL");}
+|   <WRITE> {System.out.println("WRITE");}
+|   <PLUS> {System.out.println("+");}
+|   <MINUS> {System.out.println("-");}
+|   <STAR> {System.out.println("*");}
+|   <SLASH> {System.out.println("/");}
+|   <REM> {System.out.println("%");}
+|   <EQUALS> {System.out.println("=");}
+|   <PLUSASSIGN> {System.out.println("+=");}
+|   <MINUSASSIGN> {System.out.println("-=");}
+|   <STARASSIGN> {System.out.println("*=");}
+|   <SLASHASSIGN> {System.out.println("/=");}
+|   <COLON> {System.out.println(":");}
+|   <XOR> {System.out.println("^");}
+|   <ARROBA> {System.out.println("@");}
+|   <CIFRAO> {System.out.println("$");}
+|   <HASHTAG> {System.out.println("#");}
+|   <LT> {System.out.println("<");}
+|   <LOE> {System.out.println("<=");}
+|   <GT> {System.out.println(">");}
+|   <GOE> {System.out.println(">=");}
+|   <LPAREN> {System.out.println("(");}
+|   <RPAREN> {System.out.println(")");}
+|   <LBRACE> {System.out.println("{");}
+|   <RBRACE> {System.out.println("}");}
+|   <COMMA> {System.out.println(",");}
+|   <SEMICOLON> {System.out.println(";");}
+|   <BIT_AND> {System.out.println("&");}
+|   <DOT> {System.out.println(".");}
+|   <LBRACKET> {System.out.println("[");}
+|   <RBRACKET> {System.out.println("]");}
+|   <LSHIFT> {System.out.println("<<");}
+|   <RSIGNEDSHIFT> {System.out.println(">>");}
+|   <STARSTAR> {System.out.println("**");}
+|   <LTGT> {System.out.println("<>");}
+|   <GTLT> {System.out.println("><");}
+|   <ATRIB> {System.out.println(":=");}
+|   <ABRESTAR> {System.out.println("(*");}
+|   <STARFECHA> {System.out.println("*)");}
+|   <ABREDOT> {System.out.println("(.");}
+|   <DOTFECHA> {System.out.println(".)");}
+|   <BARRABARRA> {System.out.println("//");}
+|   t = <ID> {System.out.println("ID " + t.image);}
+|   t = <NUM> {System.out.println("NUM " + t.image);}
+|   t = <FLOAT_NUM> {System.out.println("FLOAT_NUM " + t.image);}
+|   t = <STRING> {System.out.println("STRING " + t.image);}
+}
