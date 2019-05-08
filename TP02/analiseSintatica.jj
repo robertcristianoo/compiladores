@@ -272,6 +272,23 @@ TOKEN :
 | < BOOLEAN: (<TRUE> | <FALSE>) >
 }
 
+TOKEN :
+{
+  < EXPRESSION: <SIMPLE_EXPRESSION> <LOGICAL_OP> <SIMPLE_EXPRESSION> >
+|
+  < #SIMPLE_EXPRESSION: <ADDING_OP> <TERM> <ADDING_OP> >
+|
+  < #TERM: <MULTI_OP> <FACTOR> <MULTI_OP> >
+|
+  < #LOGICAL_OP: <LT> | <LOE> | <GT> | <GOE> | <EQUALS> | <LTGT> >
+|
+  < #ADDING_OP: <PLUS> | <MINUS> | <OR> | <XORR> >
+|
+  < #MULTI_OP: <STAR> | <SLASH> | <DIV> | <MOD> | <AND> | <SHL> | <SHR> | <AS> >
+|
+  < #FACTOR: <LPAREN> <EXPRESSION> <RPAREN> | <NOT> <FACTOR> >
+}
+
 /************************************************
  * THE PASCAL GRAMMAR SPECIFICATION STARTS HERE *
  ************************************************/
