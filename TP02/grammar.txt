@@ -24,7 +24,8 @@ T -> T As F
 T -> F
 F -> ( E )
 F -> Not F
-F -> Sign F
+F -> + F
+F -> - F
 F -> a
 
 http://jsmachines.sourceforge.net/machines/lalr1.html
