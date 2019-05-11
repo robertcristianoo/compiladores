@@ -1,40 +1,44 @@
 /* 
     Authors: Paulo Augusto, Robert Cristiano
-    last edit: 24/03/2019
+    last edit: 10/05/2019
     by: Robert Cristiano
  */
 
+ options { 
+  STATIC=false; 
+} 
+ 
 PARSER_BEGIN(analiseSintatica)
 
+// import java.io.PrintStream ; 
+
+// public class analiseSintatica {
+	// double previousValue = 0.0 ;
+    // final static String Version = "0.0.1";
+
+    // public static void main(String args[]) throws ParseException { 
+     // analiseSintatica parser = new analiseSintatica(System.in);    
+    // while (true) { 
+      // try { 
+      	    // parser.Start(System.out);       
+      // } catch (Exception e) { 
+        // System.out.println("NOK."); 
+        // System.out.println(e.getMessage()); 
+        // parser.ReInit(System.in); 
+      // } catch (Error e) { 
+        // System.out.println("Oops."); 
+        // System.out.println(e.getMessage()); 
+        // break; 
+      // } 
+    // } 
+  // } 
+// }
+
 public class analiseSintatica {
-  public static void main(String args[]) throws ParseException {
-    analiseSintatica parser;
-    if (args.length == 0) {
-          System.out.println("Pascal Parser:  Reading from standard input . . .");
-          parser = new analiseSintatica(System.in);
-        } else if (args.length == 1) {
-          System.out.println("Pascal Parser:  Reading from file " + args[0] + " . . .");
-          try {
-            parser = new analiseSintatica(new java.io.FileInputStream(args[0]));
-          } catch (java.io.FileNotFoundException e) {
-            System.out.println("Pascal Parser:  File " + args[0] + " not found.");
-            return;
-          }
-        } else {
-          System.out.println("Pascal Parser:  Usage is one of:");
-          System.out.println("         java analiseSintatica < inputfile");
-          System.out.println("OR");
-          System.out.println("         java analiseSintatica inputfile");
-          return;
-        }
-        try {
-          parser.pascal_input();
-          System.out.println("Pascal Parser:  Pascal program parsed successfully.");
-        } catch (ParseException e) {
-          System.out.println(e.getMessage());
-          System.out.println("Pascal Parser:  Encountered errors during parse.");
-        }
-  }
+	public static void main(String args[]) throws Exception{
+		double result = new analiseSintatica(new java.io.StringReader(args[0])).S();
+		System.out.println(result);
+	}
 }
 
 PARSER_END(analiseSintatica)
@@ -46,6 +50,10 @@ SKIP :
 | "\n"
 | "\r"
 }
+
+// TOKEN: {
+    // < EOL: "\n" | "\r" | "\r\n"  >
+// }
 
 /***********************************************
  * THE PASCAL TURBO RESERVERD WORDS START HERE *
@@ -267,197 +275,64 @@ TOKEN :
 | < ABREDOT: "(." >
 | < DOTFECHA: ".)" >
 | < BARRABARRA: "//" >
-| < #TRUE : "true" >
-| < #FALSE : "false" >
 | < BOOLEAN: (<TRUE> | <FALSE>) >
+| < #TRUE: "True" >
+| < #FALSE: "False" >
 }
 
-TOKEN :
-{
-  < EXPRESSION: <SIMPLE_EXPRESSION> <LOGICAL_OP> <SIMPLE_EXPRESSION> >
-|
-  < #SIMPLE_EXPRESSION: <ADDING_OP> <TERM> <ADDING_OP> >
-|
-  < #TERM: <MULTI_OP> <FACTOR> <MULTI_OP> >
-|
-  < #LOGICAL_OP: <LT> | <LOE> | <GT> | <GOE> | <EQUALS> | <LTGT> >
-|
-  < #ADDING_OP: <PLUS> | <MINUS> | <OR> | <XORR> >
-|
-  < #MULTI_OP: <STAR> | <SLASH> | <DIV> | <MOD> | <AND> | <SHL> | <SHR> | <AS> >
-|
-  < #FACTOR: <LPAREN> <EXPRESSION> <RPAREN> | <NOT> <FACTOR> >
-}
+// TOKEN :
+// {
+  // < EXPRESSION: <SIMPLE_EXPRESSION> <LOGICAL_OP> <SIMPLE_EXPRESSION> >
+// |
+  // < #SIMPLE_EXPRESSION: <ADDING_OP> <TERM> <ADDING_OP> >
+// |
+  // < #TERM: <MULTI_OP> <FACTOR> <MULTI_OP> >
+// |
+  // < #LOGICAL_OP: <LT> | <LOE> | <GT> | <GOE> | <EQUALS> | <LTGT> >
+// |
+  // < #ADDING_OP: <PLUS> | <MINUS> | <OR> | <XORR> >
+// |
+  // < #MULTI_OP: <STAR> | <SLASH> | <DIV> | <MOD> | <AND> | <SHL> | <SHR> | <AS> >
+// |
+  // < #FACTOR: <LPAREN> <EXPRESSION> <RPAREN> | <NOT> <FACTOR> >
+// }
 
 /************************************************
  * THE PASCAL GRAMMAR SPECIFICATION STARTS HERE *
  ************************************************/
 
-void pascal_input() :
-{}
+double Start(): {double value=0.0;}
 {
-  term()
-  (
-    term()
-  )*
+  value = S() {return value;}
 }
 
-void term() :
-{Token t;}
-{ 	
-    <ABSOLUTE> {System.out.println("ABSOLUTE");}
-|   <AND> {System.out.println("AND");}
-|   <ARRAY> {System.out.println("ARRAY");}
-|   <ASM> {System.out.println("ASM");}
-|   <BEGIN> {System.out.println("BEGIN");}
-|   <CASE> {System.out.println("CASE");}
-|   <CONST> {System.out.println("CONST");}
-|   <CONSTRUCTOR> {System.out.println("CONSTRUCTOR");}
-|   <DESTRUCTOR> {System.out.println("DESTRUCTOR");}
-|   <DIV> {System.out.println("DIV");}
-|   <DO> {System.out.println("DO");}
-|   <DOWNTO> {System.out.println("DOWNTO");}
-|   <ELSE> {System.out.println("ELSE");}
-|   <END> {System.out.println("END");}
-|   <FILE> {System.out.println("FILE");}
-|   <FOR> {System.out.println("FOR");}
-|   <FUNCTION> {System.out.println("FUNCTION");}
-|   <GOTO> {System.out.println("GOTO");}
-|   <IF> {System.out.println("IF");}
-|   <IMPLEMENTATION> {System.out.println("IMPLEMENTATION");}
-|   <IN> {System.out.println("IN");}
-|   <INHERITED> {System.out.println("INHERITED");}
-|   <INLINE> {System.out.println("INLINE");}
-|   <INTERFACE> {System.out.println("INTERFACE");}
-|   <LABEL> {System.out.println("LABEL");}
-|   <MOD> {System.out.println("MOD");}
-|   <NIL> {System.out.println("NIL");}
-|   <NOT> {System.out.println("NOT");}
-|   <OBJECT> {System.out.println("OBJECT");}
-|   <OF> {System.out.println("OF");}
-|   <OPERATOR> {System.out.println("OPERATOR");}
-|   <OR> {System.out.println("OR");}
-|   <PACKED> {System.out.println("PACKED");}
-|   <PROCEDURE> {System.out.println("PROCEDURE");}
-|   <PROGRAM> {System.out.println("PROGRAM");}
-|   <RECORD> {System.out.println("RECORD");}
-|   <REINTRODUCE> {System.out.println("REINTRODUCE");}
-|   <REPEAT> {System.out.println("REPEAT");}
-|   <SELF> {System.out.println("SELF");}
-|   <SET> {System.out.println("SET");}
-|   <SHL> {System.out.println("SHL");}
-|   <SHR> {System.out.println("SHR");}
-|   <STRINGR> {System.out.println("STRING");}
-|   <THEN> {System.out.println("THEN");}
-|   <TO> {System.out.println("TO");}
-|   <TYPE> {System.out.println("TYPE");}
-|   <UNIT> {System.out.println("UNIT");}
-|   <UNTIL> {System.out.println("UNTIL");}
-|   <USERS> {System.out.println("USERS");}
-|   <VAR> {System.out.println("VAR");}
-|   <WHILE> {System.out.println("WHILE");}
-|   <WITH> {System.out.println("WITH");}
-|   <XORR> {System.out.println("XOR");}
-|   <ABSTRACT> {System.out.println("ABSTRACT");}
-|   <ALIAS> {System.out.println("ALIAS");}
-|   <ASSEMBLER> {System.out.println("ASSEMBLER");}
-|   <BITPACKED> {System.out.println("BITPACKED");}
-|   <BREAK> {System.out.println("BREAK");}
-|   <CDECL> {System.out.println("CDECL");}
-|   <CONTINUE> {System.out.println("CONTINUE");}
-|   <CPPDECL> {System.out.println("CPPDECL");}
-|   <CVAR> {System.out.println("CVAR");}
-|   <DEFAULTR> {System.out.println("DEFAULTR");}
-|   <DEPRECATED> {System.out.println("DEPRECATED");}
-|   <DYNAMIC> {System.out.println("DYNAMIC");}
-|   <ENUMERATOR> {System.out.println("ENUMERATOR");}
-|   <EXPERIMENTAL> {System.out.println("EXPERIMENTAL");}
-|   <EXPORT> {System.out.println("EXPORT");}
-|   <EXTERNAL> {System.out.println("EXTERNAL");}
-|   <FAR> {System.out.println("FAR");}
-|   <FAR16> {System.out.println("FAR16");}
-|   <FORWARD> {System.out.println("FORWARD");}
-|   <GENERIC> {System.out.println("GENERIC");}
-|   <HELPER> {System.out.println("HELPER");}
-|   <IMPLEMENTS> {System.out.println("IMPLEMENTS");}
-|   <INDEX> {System.out.println("INDEX");}
-|   <INTERRUPT> {System.out.println("INTERRUPT");}
-|   <IOCHECK> {System.out.println("IOCHECK");}
-|   <LOCAL> {System.out.println("LOCAL");}
-|   <MESSAGE> {System.out.println("MESSAGE");}
-|   <NAME> {System.out.println("NAME");}
-|   <NEAR> {System.out.println("NEAR");}
-|   <NODEFAULT> {System.out.println("NODEFAULT");}
-|   <NORETURN> {System.out.println("NORETURN");}
-|   <NOSTACKFRAME> {System.out.println("NOSTACKFRAME");}
-|   <OLDFPCCALL> {System.out.println("OLDFPCCALL");}
-|   <OTHERWISE> {System.out.println("OTHERWISE");}
-|   <OVERLOAD> {System.out.println("OVERLOAD");}
-|   <OVERRIDE> {System.out.println("OVERRIDE");}
-|   <PASCAL> {System.out.println("PASCAL");}
-|   <PLATFORM> {System.out.println("PLATFORM");}
-|   <PRIVATE> {System.out.println("PRIVATE");}
-|   <PROTECTED> {System.out.println("PROTECTED");}
-|   <PUBLIC> {System.out.println("PUBLIC");}
-|   <PUBLISHED> {System.out.println("PUBLISHED");}
-|   <READ> {System.out.println("READ");}
-|   <REGISTER> {System.out.println("REGISTER");}
-|   <RESULT> {System.out.println("RESULT");}
-|   <SAFECALL> {System.out.println("SAFECALL");}
-|   <SAVEREGISTERS> {System.out.println("SAVEREGISTERS");}
-|   <SOFTFLOAT> {System.out.println("SOFTFLOAT");}
-|   <SPECIALIZE> {System.out.println("SPECIALIZE");}
-|   <STACTIC> {System.out.println("STACTIC");}
-|   <SDTCALL> {System.out.println("SDTCALL");}
-|   <STORED> {System.out.println("STORED");}
-|   <STRICT> {System.out.println("STRICT");}
-|   <UNALIGNED> {System.out.println("UNALIGNED");}
-|   <UNIMPLEMENTED> {System.out.println("UNIMPLEMENTED");}
-|   <VARARGS> {System.out.println("VARARGS");}
-|   <VIRUAL> {System.out.println("VIRUAL");}
-|   <WRITE> {System.out.println("WRITE");}
-|   <PLUS> {System.out.println("+");}
-|   <MINUS> {System.out.println("-");}
-|   <STAR> {System.out.println("*");}
-|   <SLASH> {System.out.println("/");}
-|   <REM> {System.out.println("%");}
-|   <EQUALS> {System.out.println("=");}
-|   <PLUSASSIGN> {System.out.println("+=");}
-|   <MINUSASSIGN> {System.out.println("-=");}
-|   <STARASSIGN> {System.out.println("*=");}
-|   <SLASHASSIGN> {System.out.println("/=");}
-|   <COLON> {System.out.println(":");}
-|   <XOR> {System.out.println("^");}
-|   <ARROBA> {System.out.println("@");}
-|   <CIFRAO> {System.out.println("$");}
-|   <HASHTAG> {System.out.println("#");}
-|   <LT> {System.out.println("<");}
-|   <LOE> {System.out.println("<=");}
-|   <GT> {System.out.println(">");}
-|   <GOE> {System.out.println(">=");}
-|   <LPAREN> {System.out.println("(");}
-|   <RPAREN> {System.out.println(")");}
-|   <LBRACE> {System.out.println("{");}
-|   <RBRACE> {System.out.println("}");}
-|   <COMMA> {System.out.println(",");}
-|   <SEMICOLON> {System.out.println(";");}
-|   <BIT_AND> {System.out.println("&");}
-|   <DOT> {System.out.println(".");}
-|   <LBRACKET> {System.out.println("[");}
-|   <RBRACKET> {System.out.println("]");}
-|   <LSHIFT> {System.out.println("<<");}
-|   <RSIGNEDSHIFT> {System.out.println(">>");}
-|   <STARSTAR> {System.out.println("**");}
-|   <LTGT> {System.out.println("<>");}
-|   <GTLT> {System.out.println("><");}
-|   <ATRIB> {System.out.println(":=");}
-|   <ABRESTAR> {System.out.println("(*");}
-|   <STARFECHA> {System.out.println("*)");}
-|   <ABREDOT> {System.out.println("(.");}
-|   <DOTFECHA> {System.out.println(".)");}
-|   <BARRABARRA> {System.out.println("//");}
-|   t = <ID> {System.out.println("ID " + t.image);}
-|   t = <NUM> {System.out.println("NUM " + t.image);}
-|   t = <FLOAT_NUM> {System.out.println("FLOAT_NUM " + t.image);}
-|   t = <STRING> {System.out.println("STRING " + t.image);}
+double S(): {double x, value=0.0;}
+{
+  value = T() 
+  (
+		<PLUS>x = T() {value += x;} 
+	| 
+		<MINUS>x = T() {value -= x;}
+	// |
+		// <OR>x = T() {value = 1}
+   )* {return value;}
+}
+
+double T(): {double x, value=0.0;}
+{
+  value = F() (<STAR>x = F() {value *= x;} | <SLASH>x = F() {value /= x;})* 
+  {return value;}
+}
+
+double F(): {double x; Token t;}
+{
+  t = <NUM> {return Double.parseDouble(t.image);}
+|
+  t = <FLOAT_NUM> {return Double.parseDouble(t.image);}
+|
+  <LPAREN> x = S() <RPAREN> {return x;}
+|
+  <MINUS> x = F() {return -x;}
+// |
+  // <NOT> x = F() {return x;}
 }

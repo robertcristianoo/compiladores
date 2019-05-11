@@ -1,9 +1,30 @@
-S -> E $
-E -> ( E )
-E -> E + E
-E -> E - E
-E -> E * E
-E -> E / E
-E -> a
+S' -> E $
+E -> S < S
+E -> S <= S
+E -> S > S
+E -> S >= S
+E -> S = S
+E -> S <> S
+E -> S In S
+E -> S Is S
+E -> S
+S -> S + T
+S -> S - T
+S -> S Or T
+S -> S Xor T
+S -> T
+T -> T * F
+T -> T / F
+T -> T Div F
+T -> T Mod F
+T -> T And F
+T -> T Shl F
+T -> T Shr F
+T -> T As F
+T -> F
+F -> ( E )
+F -> Not F
+F -> Sign F
+F -> a
 
-http://jsmachines.sourceforge.net/machines/lr1.html
+http://jsmachines.sourceforge.net/machines/lalr1.html
