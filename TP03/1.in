@@ -1,7 +1,30 @@
-function TestaAi (a : Longint) ;
-var b , c , d : Longint ;
+function
+ID TestaAi
+(
+ID a
+:
+Longint
+)
+:
+Longint
+;
+var
+ID b
+,
+ID c
+,
+ID d
+:
+Longint
+;
 begin
-b := 3 ;
-c := 199 ;
+ID b
+:=
+NUM 3
+;
+ID c
+:=
+NUM 199
 end
+;
 $
