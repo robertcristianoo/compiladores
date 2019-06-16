@@ -27,7 +27,7 @@ hs_err_pid*
 
 # c files
 .o
-.exe
+*.exe
 
 # c++ files
 *.gch
