@@ -14,5 +14,15 @@ ID n
 ID n
 -
 NUM 1
+;
+ID fatorial
+:=
+ID n
+*
+(
+ID n
+-
+NUM 1
+)
 END
 $

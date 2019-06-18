@@ -12,20 +12,19 @@ OperadorBin * OperadorBin::gera_operador_bin(int regra){
   case 6: return new MaiorIgual();
   case 7: return new Igual();
   case 8: return new Diferente();
-  case 9: return new Maior(); // Errei coloquei duas vezes menor na gramatica. Nao deve acontecer.
-  case 12: return new Soma();
-  case 13: return new Subtrai();
-  case 14: return new Or();
-  case 15: return new Xor();
-  case 18: return new Multiplica();
-  case 19: return new Divide();
-  case 20: return new DivideInteiro();
-  case 21: return new Mod();
-  case 22: return new And();
-  case 23: return new Shl();
-  case 24: return new Shr();
+  case 11: return new Soma();
+  case 12: return new Subtrai();
+  case 13: return new Or();
+  case 14: return new Xor();
+  case 17: return new Multiplica();
+  case 18: return new Divide();
+  case 19: return new DivideInteiro();
+  case 20: return new Mod();
+  case 21: return new And();
+  case 22: return new Shl();
+  case 23: return new Shr();
   default:
-    std::cerr << "This shouldnt happen, gera operador bin, regra nao de operador binario." <<endl;
+    std::cerr << "Nao existe correspondencia para esse operador na gramatica" << endl;
     return NULL;
   }
 }
@@ -265,11 +264,11 @@ Valor_t Shr::opera_valor(Valor_t esq, Valor_t dir) {
 /*OperadorUnario*/
 OperadorUnario * OperadorUnario::gera_operador_unario(int regra){
   switch(regra) {
-  case 26: return new MenosUnario();
-  case 27: return new MaisUnario();
-  case 28: return new Not();
+  case 25: return new MenosUnario();
+  case 26: return new MaisUnario();
+  case 27: return new Not();
   default:
-    cerr << "This shouldnt happen, gera operador unario, regra nao de operador unario." <<endl;
+    std::cerr << "Nao existe correspondencia para esse operador na gramatica" << endl;
     return NULL;
   }
 }

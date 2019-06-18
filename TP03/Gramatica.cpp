@@ -29,9 +29,9 @@ Gramatica::Gramatica(ifstream &arq_gramatica) {
 
   void Gramatica::debug() {
     for (int r = 0; r < R.size(); ++r) {
-      cerr << R[r].esq << "->";
+      cerr << r << " " << R[r].esq << " ->";
       for (int j = 0; j < R[r].dir.size(); ++j){
-        cerr << ":" << R[r].dir[j];
+        cerr << " " << R[r].dir[j];
       }
       cerr << endl;
     }

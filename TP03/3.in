@@ -8,8 +8,13 @@ LONGINT
 :
 LONGINT
 ;
+VAR
+ID a
+:
+LONGINT
+;
 BEGIN
-ID n
+ID a
 :=
 ID n
 -

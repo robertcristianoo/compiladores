@@ -43,17 +43,117 @@ Exp* expressao_de_terminal(No_arv_parse * no) {
   return NULL;
 }
 
+void Arvore::simplificaIL(No_arv_parse * nodo, vector< pair< pair<string,int>, Valor_t> > &var, int enumType) {
+	pair< pair<string,int>, Valor_t> atual;
+	
+	switch(nodo->regra) {
+		case 39: //IL -> ID , IL
+			simplificaIL(nodo->filhos[2], var, enumType);
+		case 40: //IL -> ID
+			atual.first.first = nodo->filhos[0]->dado_extra; //pega o nome da variavel
+			atual.first.second = enumType; //atualiza o tipo
+			
+			atr.push_back(atual); //insere no vetor de variáveis
+			break;
+	}
+}
+
+void Arvore::simplificaVar(No_arv_parse * nodo, vector< pair< pair<string,int>, Valor_t> > &var) {
+	int enumType;
+	
+	switch(nodo->regra) {
+		case 36: //K -> P ; K 
+		case 44: //L -> P ; L
+			simplificaVar(nodo->filhos[2], var);
+			break;
+		case 37: //K -> P ;
+		case 45: //L -> P
+			switch(nodo->filhos[0]->filhos[2]->regra) {
+				case 41: //int
+				  enumType = 2; //T -> Longint
+				  break;
+				case 42: //bool
+				  enumType = 1; //T -> Boolean
+				  break;
+				case 43: //float
+				  enumType = 3; //T -> Double
+				  break;
+			}
+			simplificaIL(nodo->filhos[0]->filhos[0], var, enumType);
+			break;
+	}
+}
+
+void simplificaFun(No_arv_parse * nodo, vector< pair< pair<string,int>, Valor_t> > &var){
+	Exp *exp;
+	
+	int index = -1; //não definido
+	
+	switch(nodo->regra_ {
+		case 47: //X -> Y M
+		case 49: //Y -> Y M ;
+			simplificaFun(nodo->filhos[0], var);
+			simplificaExp(nodo->filhos[1]->filhos[0], var);
+			
+			for (int i = 0; i < var.size(); ++i) { //procura por todos os ID já identificados
+				//se o atual já tiver sido declarado, pega o index dele
+				if (var[i].first.first == nodo->filhos[1]->filhos[0]->dado_extra) {
+					index = i;
+				}
+			}
+			
+			//se verdadeiro, significa q o ID atual não foi declarado no escopo, portanto apresenta erro.
+			if (index == -1) {
+				cerr << "Error: Identifier not found '" << nodo->filhos[1]->filhos[0]->dado_extra << "'" 
+					<< endl;
+			} else { //PAREI AQUIIIIIIIIIIIIII!!!!!! AQUIII !!!! AQUIIIIIIIIIIIIII
+				//INCOMPLETO!!!!!!!!!!!!!!!!!!
+				//FUI TRABALHAR!!
+			}
+	}
+}
+
+void Arvore::inicia(vector< pair< pair<string,int>, Valor_t> > &var) {
+	pair< pair<string,int>, Valor_t> atual;
+	
+	atual.first.first = raiz->filhos[0]->filhos[1]->dado_extra; //salva o ID
+	
+	switch(raiz->filhos[0]->filhos[6]->regra) { //regra 33-FUN -> function ID ( L ) : T ;
+		case 41: //int
+		  atual.first.second = 2; //T -> Longint
+		  break;
+		case 42: //bool
+		  atual.first.second = 1; //T -> Boolean
+		  break;
+		case 43: //float
+		  atual.first.second = 3; //T -> Double
+		  break;
+	}
+	
+	atual.push_back(atual); //insere no vetor de variáveis
+	
+	simplificaVar(raiz->filhos[0]->filhos[3], var); //passando a lista de param para ser simplificada
+	
+	cout<<"PASSOU!!!!!!!!!!!"<<endl;
+	
+	if (raiz->filhos[1]->regra != 37) {
+		simplificaVar(raiz->filhos[1]->filhos[1], var);
+	}
+	
+	simplificaFun(raiz->filhos[2]->filhos[1], var);
+}
+
 /** Reaproveita nos e nao desaloca.*/
 Exp* Arvore::simplificaExp(No_arv_parse * no) { //renomear simplicaExp
   switch(no->regra) {
   case -1: return expressao_de_terminal(no); //terminal
-  case 1: case 11: case 17: case 29: case 30: case 31: case 32:
+  case 1: case 10: case 16: case 28: case 29: case 30: case 31:
     return simplificaExp(no->filhos[0]); // regra X -> Y e equivalentes
     break;
-  case 25: return simplificaExp(no->filhos[1]); // C -> ( E )
-  case 2: case 10: case 16:
+  case 24: return simplificaExp(no->filhos[1]); // C -> ( E )
+  case 2: case 9: case 15:
     return new ExpDoisOp(OperadorBin::gera_operador_bin(no->filhos[1]->regra), simplificaExp(no->filhos[0]), simplificaExp(no->filhos[2]));
-  case 26: case 27: case 28: 
+  case 25: case 26: case 27: 
     return new ExpUmOp(OperadorUnario::gera_operador_unario(no->regra), simplificaExp(no->filhos[1]));
   default:
     return NULL;
