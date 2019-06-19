@@ -12,7 +12,7 @@ Gramatica::Gramatica(ifstream &arq_gramatica) {
     if (mat[mat.size()-1].size() == 1) mat.pop_back(); //remove ultima linha vazia.
        // debug_mat(mat);
     for (int i = 0; i < mat.size(); ++i) {
-      //      cerr << "Gramatica("<< i << ":" << mat[i].size() << ":" << mat[i][0] << ")" << endl;
+         //   cerr << "Gramatica("<< i << ":" << mat[i].size() << ":" << mat[i][0] << mat[i][2] << ")" << endl;
       if (mat[i].size() < 2) {
         cerr << "Erro leitura gramatica 1:"<< i << ":" << mat[i].size() << ":" << mat[i][0] << ":" << endl;
       } else {

@@ -29,7 +29,7 @@ int main(int argc, char * argv[]) {
 	if (argc == 1) {
 		//cerr << "Valores padrao utilizados: gramatica.conf e tabela.conf" << endl;
 		nome_gramatica = string("gramatica.conf");
-		tabela = string("tabela.csv");
+		tabela = string("tabela2.csv");
 	} else {
 		nome_gramatica = string(argv[1]);
 		tabela = string(argv[2]);
@@ -52,7 +52,7 @@ int main(int argc, char * argv[]) {
 	vector< pair< pair<string,int>, Valor_t> > var; //vetor de variaveis (ID)
 
 	Arvore arv = parser.executa_parse(cin);
-	// arv.debug();
+	 arv.debug();
 	arv.inicia(var);
 	
 	cout<<"Retorno da funcao " << var[0].first.first << " eh = "<<var[0].second.to_string()<< endl;

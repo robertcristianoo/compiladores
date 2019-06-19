@@ -17,10 +17,10 @@ Arvore Parser::executa_parse(istream &input) {
   input >> x;
   lookahead = to_upper(x);
   do {
-         // cerr << "Estado:" << estado_atual << endl;
-		Transicao t = (lookahead == "BEGIN" && estado_atual == 114) ? 
+        //  cerr << "Estado:" << estado_atual << endl;
+		Transicao t = tabela.Tab[estado_atual][tabela.simbolo_coluna[lookahead]]; /* (lookahead == "BEGIN" && estado_atual == 114) ? 
 			tabela.Tab[estado_atual][tabela.simbolo_coluna["VAZIO"]] :
-			tabela.Tab[estado_atual][tabela.simbolo_coluna[lookahead]];
+			tabela.Tab[estado_atual][tabela.simbolo_coluna[lookahead]]; */
          // cerr << t.impressao();
     switch(t.tipo) {
     case 0: return Arvore(NULL); break; //erro
@@ -62,12 +62,13 @@ Arvore Parser::executa_parse(istream &input) {
           ap_no->filhos[r.dir.size() - i - 1] = pilha.top().first;
           estado = pilha.top().second;
 		  // cerr << "estado = " << estado << " simbolo: " << r.esq << " lookahead: "<< lookahead<< endl;
+		  // cerr << "r.dir.size() " << r.dir.size() << endl;
           pilha.pop();
         }
-		// if(lookahead == "BEGIN" && estado_atual == 114){
-			// // cerr<< "blablabla"<<endl;
-		  // estado = 2;
-		// }
+		 /* if(!r.dir.size()){
+			 cerr << "blablabla" << endl;
+			estado = estado_atual;
+		 } */
         pilha.push(make_pair(ap_no,estado));
         Transicao go_to = tabela.Tab[estado][tabela.simbolo_coluna[r.esq]];
         if (go_to.tipo != 2) {

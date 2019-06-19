@@ -1,4 +1,4 @@
-|<|<=|>|>=|=|<>|+|-|OR|XOR|*|/|DIV|MOD|AND|SHL|SHR|(|)|NOT|ID|NUM|FLOAT_NUM|STRING|FUNCTION|:|;|VAR|VAZIO|,|LONGINT|BOOLEAN|DOUBLE|BEGIN|END|:=|$|SS|E|opR|A|opB|B|opC|C|S|FUN|V|K|P|IL|T|L|BEG|X|Y|M
+|<|<=|>|>=|=|<>|+|-|OR|XOR|*|/|DIV|MOD|AND|SHL|SHR|(|)|NOT|ID|NUM|FLOAT_NUM|STRING|FUNCTION|:|;|VAR| |,|LONGINT|BOOLEAN|DOUBLE|BEGIN|END|:=|$|SS|E|opR|A|opB|B|opC|C|S|FUN|V|K|P|IL|T|L|BEG|X|Y|M
 0|||||||||||||||||||||||||s3|||||||||||||||||||||1|2||||||||||
 1|||||||||||||||||||||||||||||||||||||acc||||||||||||||||||||
 2||||||||||||||||||||||||||||s5|s6|||||||||||||||||||4|||||||||

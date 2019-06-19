@@ -107,13 +107,13 @@ void Arvore::simplificaIL(No_arv_parse * nodo, vector< pair< pair<string,int>, V
 	}
 }
 
-void Arvore::simplificaVar(No_arv_parse * nodo, vector< pair< pair<string,int>, Valor_t> > &var) {
+void Arvore::simplificaListaParam(No_arv_parse * nodo, vector< pair< pair<string,int>, Valor_t> > &var) {
 	int enumType;
 	
 	switch(nodo->regra) {
 		case 36: //K -> P ; K 
 		case 44: //L -> P ; L
-			simplificaVar(nodo->filhos[2], var);
+			simplificaListaParam(nodo->filhos[2], var);
 			break;
 		case 37: //K -> P ;
 		case 45: //L -> P
@@ -152,7 +152,8 @@ Exp* Arvore::simplificaExp(No_arv_parse * no, vector< pair< pair<string,int>, Va
 }
 
 void Arvore::inicia(vector< pair< pair<string,int>, Valor_t> > &var) {
-	// cout<<"Inicia gramatica S' -> S $"<<endl;
+	 cout<<"Inicia gramatica S' -> S $"<<endl;
+	 cout<<"regra: "<<raiz->regra<<endl;
 	
 	pair< pair<string,int>, Valor_t> atual;
 	
@@ -172,16 +173,23 @@ void Arvore::inicia(vector< pair< pair<string,int>, Valor_t> > &var) {
 	
 	var.push_back(atual); //insere no vetor de variáveis
 	
-	simplificaVar(raiz->filhos[0]->filhos[3], var); //passando a lista de param para ser simplificada
+	simplificaListaParam(raiz->filhos[0]->filhos[3], var); //passando a lista de param para ser simplificada
 	
-	// cout<<"Simplificou Var"<<endl;
+	 cout<<"Simplificou Var"<<endl;
 	
-	if (raiz->filhos[1]->regra != 35) {
-		simplificaVar(raiz->filhos[1]->filhos[1], var);
-		// cout<<"Simplificou Var"<<endl;
+	switch(raiz->regra) {
+		case 32:
+			simplificaFun(raiz->filhos[1]->filhos[1], var);
+			break;
+		case 33:
+			simplificaListaParam(raiz->filhos[1]->filhos[1], var);
+			// cout<<"Simplificou Var"<<endl;
+			simplificaFun(raiz->filhos[2]->filhos[1], var);
+			
+			break;
 	}
 	
-	simplificaFun(raiz->filhos[2]->filhos[1], var);
+	
 	// cout<<"Simplificou Fun"<<endl;
 	// cout<<"acabou"<<endl;
 }
