@@ -6,6 +6,7 @@ Valor_t::  Valor_t() {
     i = 0;
     d = 0.0;      
   }
+  
 Valor_t::  Valor_t(Tipo t, bool bb, int ii, double dd) {
     tipo = t;
     b = bb;

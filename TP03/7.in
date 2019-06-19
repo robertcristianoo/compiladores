@@ -1,0 +1,43 @@
+FUNCTION
+ID fatorial
+(
+ID n
+,
+ID k
+:
+LONGINT
+;
+ID eps
+:
+DOUBLE
+)
+:
+LONGINT
+;
+VAR
+ID a
+,
+ID b
+:
+LONGINT
+;
+BEGIN
+ID a
+:=
+ID n
+-
+NUM 1
+;
+ID b
+:=
+ID a
+*
+ID n
+;
+ID fatorial
+:=
+ID b
+*
+ID k
+END
+$

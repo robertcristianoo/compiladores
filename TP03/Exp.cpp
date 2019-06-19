@@ -26,9 +26,9 @@ Valor_t ExpNumFloat::calcula() {
   return Valor_t::Valor_flutuante(this->d);
 }
 
-ExpID::ExpID(string ss) : id(ss){} //consulta tabela de simbolos
+ExpID::ExpID(string ss, Valor_t vt) : id(ss), v(vt){} //consulta tabela de simbolos
 Valor_t ExpID::calcula() {
-  return Valor_t::Valor_indefinido();
+  return this->v;
 }
 
 ExpString::ExpString(string ss) : s(ss){}

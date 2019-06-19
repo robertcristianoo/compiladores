@@ -46,7 +46,8 @@ public:
 class ExpID : public Exp {
 public:
   string id;
-  ExpID(string iid);
+  Valor_t v;
+  ExpID(string id, Valor_t vt);
   Valor_t calcula();  
 };
 

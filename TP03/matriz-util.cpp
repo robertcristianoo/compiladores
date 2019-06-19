@@ -30,9 +30,9 @@ vector<vector<string> > matriz_de_arquivo(ifstream &arq, char delim_lin, char de
 
 void debug_mat(vector<vector<string> > mat) {
   for (int l = 0; l < mat.size(); ++l){ 
-    // cerr << mat[l].size() << "(";
+    cerr << mat[l].size() << "(";
     for (int c = 0; c < mat[l].size();++c){
-      cerr <<mat[l][c] << " ";
+      cerr <<mat[l][c] << ":";
     }
     cerr << endl;
   }

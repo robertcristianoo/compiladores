@@ -8,24 +8,24 @@
 #include<sstream>
 using namespace std;
 
-Transicao::Transicao(string token){
+Transicao::Transicao(string tok){
   tipo = reducao = prox_estado = -1;
-  if (token.size() == 0) {
+  if (tok.size() == 0) {
     tipo = 0; //vazio
-  } else if (token[0] == 's') {
+  } else if (tok[0] == 's') {
     tipo = 1; //shift
-    //      cerr << "convertendo:" << token.substr(1) << endl;
-    prox_estado = stoi(token.substr(1));
-  } else if (token[0] == 'a') {
+    //      cerr << "convertendo:" << tok.substr(1) << endl;
+    prox_estado = stoi(tok.substr(1));
+  } else if (tok[0] == 'a') {
     tipo = 4; //aceita
-  }else if (token[0] != 'r') {
+  }else if (tok[0] != 'r') {
     tipo = 2; // goto
-    //      cerr << "convertendo:" << token << endl;
-    prox_estado = stoi(token);
+    //      cerr << "convertendo:" << tok << endl;
+    prox_estado = stoi(tok);
   } else {// == r
     tipo = 3; //reducao
-    //      cerr << "convertendo:" << token.substr(1) << endl;
-    reducao = stoi(token.substr(1));
+    //      cerr << "convertendo:" << tok.substr(1) << endl;
+    reducao = stoi(tok.substr(1));
   }
 }
 
