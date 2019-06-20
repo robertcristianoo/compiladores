@@ -17,13 +17,14 @@ Arvore Parser::executa_parse(istream &input) {
   input >> x;
   lookahead = to_upper(x);
   do {
-        //  cerr << "Estado:" << estado_atual << endl;
-		Transicao t = tabela.Tab[estado_atual][tabela.simbolo_coluna[lookahead]]; /* (lookahead == "BEGIN" && estado_atual == 114) ? 
-			tabela.Tab[estado_atual][tabela.simbolo_coluna["VAZIO"]] :
-			tabela.Tab[estado_atual][tabela.simbolo_coluna[lookahead]]; */
+         // cerr << "Estado:" << estado_atual << endl;
+		Transicao t = tabela.Tab[estado_atual][tabela.simbolo_coluna[lookahead]];
          // cerr << t.impressao();
     switch(t.tipo) {
-    case 0: return Arvore(NULL); break; //erro
+    case 0: 
+		throw invalid_argument("No matching found for the last entry in the table.");
+		// return Arvore(NULL); 
+		break; //erro
     case 1: // terminal
       {
         No_arv_parse * ap_no = new No_arv_parse;
@@ -48,8 +49,8 @@ Arvore Parser::executa_parse(istream &input) {
       }
       break;
     case 2: //goto
-      cerr << "ERRO goto em lookahead."<<endl;
-      return Arvore(NULL);
+      throw invalid_argument("GOTO found in Lookahead!");
+      // return Arvore(NULL);
     case 3: //reducao
       {
         Regra r = gram.R[t.reducao];
@@ -72,8 +73,9 @@ Arvore Parser::executa_parse(istream &input) {
         pilha.push(make_pair(ap_no,estado));
         Transicao go_to = tabela.Tab[estado][tabela.simbolo_coluna[r.esq]];
         if (go_to.tipo != 2) {
-          cerr << "ausencia de goto apos reducao" << endl;
-          return Arvore(NULL);
+			throw invalid_argument("GOTO missing after a redution");
+          // cerr << "ausencia de goto apos reducao" << endl;
+		  // return Arvore(NULL);
         }
         estado_atual = go_to.prox_estado;
       }
@@ -81,8 +83,9 @@ Arvore Parser::executa_parse(istream &input) {
     case 4:
       return Arvore(pilha.top().first);
     default: 
-      cerr << "Codigo invalido" << endl;
-      return Arvore(NULL);
+		throw invalid_argument("Invalid type of argument");
+      // cerr << "Codigo invalido" << endl;
+      // return Arvore(NULL);
     }
   }while(!input.eof());
   return Arvore(NULL);

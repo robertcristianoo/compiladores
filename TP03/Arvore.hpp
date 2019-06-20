@@ -21,11 +21,12 @@ public:
 	Arvore(No_arv_parse * rr);
 	void imprime(No_arv_parse * no);
 	void debug();
-	void inicia(vector< pair< pair<string,int>, Valor_t> > &var);
-	void simplificaListaParam(No_arv_parse * nodo, vector< pair< pair<string,int>, Valor_t> > &var);
-	void simplificaIL(No_arv_parse * nodo, vector< pair< pair<string,int>, Valor_t> > &var, int enumType);
+	int inicia(vector< pair< pair<string,int>, Valor_t> > &var);
+	int simplificaListaParam(No_arv_parse * nodo, vector< pair< pair<string,int>, Valor_t> > &var);
+	int simplificaIL(No_arv_parse * nodo, vector< pair< pair<string,int>, Valor_t> > &var, int enumType);
 	Exp* simplificaExp(No_arv_parse * no, vector< pair< pair<string,int>, Valor_t> > &var);
 	void simplificaFun(No_arv_parse * nodo, vector< pair< pair<string,int>, Valor_t> > &var);
+	void calcula(vector< pair< pair<string,int>, Valor_t> > &var);
 };
 
 #endif
